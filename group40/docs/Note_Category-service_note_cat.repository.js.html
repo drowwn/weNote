@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Note_Category-service/note_cat.repository.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Note_Category-service/note_cat.repository.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+const noteCategoryRepository = {
+  
+  /**
+   * Creates a new note category by associating a note and category.
+   * 
+   * @async
+   * @function createNoteCategory
+   * @memberof module:repositories/noteCategoryRepository
+   * @param {Object} noteCategoryData - The note and category data.
+   * @param {number} noteCategoryData.noteId - The ID of the note.
+   * @param {number} noteCategoryData.categoryId - The ID of the category.
+   * @returns {Promise&lt;Object>} The created note category data.
+   * @throws {Error} If an error occurs during the creation process.
+   */
+  async createNoteCategory({ noteId, categoryId }) {
+    const { data, error } = await supabase
+      .from('note_categories')
+      .insert([{ note_id: noteId, category_id: categoryId }])
+      .single();
+
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  /**
+   * Retrieves all note categories associated with a specific note ID.
+   * 
+   * @async
+   * @function getNoteCategoriesByNoteId
+   * @memberof module:repositories/noteCategoryRepository
+   * @param {number} noteId - The ID of the note.
+   * @returns {Promise&lt;Array>} An array of note categories associated with the note ID.
+   * @throws {Error} If an error occurs while retrieving the note categories.
+   */
+  async getNoteCategoriesByNoteId(noteId) {
+    const { data, error } = await supabase
+      .from('note_categories')
+      .select('id, note_id, category_id')
+      .eq('note_id', noteId);
+
+    if (error) throw error;
+    return data;
+  },
+  
+  /**
+   * Retrieves a note category by note ID and category ID.
+   * 
+   * @async
+   * @function getNoteCategoryByNoteIdAndCategoryId
+   * @memberof module:repositories/noteCategoryRepository
+   * @param {number} noteId - The ID of the note.
+   * @param {number} categoryId - The ID of the category.
+   * @returns {Promise&lt;Object|null>} The note category data or null if not found.
+   * @throws {Error} If an error occurs while retrieving the note category.
+   */
+  async getNoteCategoryByNoteIdAndCategoryId(noteId, categoryId) {
+    const { data, error } = await supabase
+      .from('note_categories')
+      .select('id, note_id, category_id')
+      .eq('note_id', noteId)
+      .eq('category_id', categoryId)
+      .maybeSingle();
+  
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  /**
+   * Retrieves all note categories associated with a specific category ID.
+   * 
+   * @async
+   * @function getNoteCategoriesByCategoryId
+   * @memberof module:repositories/noteCategoryRepository
+   * @param {number} categoryId - The ID of the category.
+   * @returns {Promise&lt;Array>} An array of note categories associated with the category ID.
+   * @throws {Error} If an error occurs while retrieving the note categories.
+   */
+  async getNoteCategoriesByCategoryId(categoryId) {
+    const { data, error } = await supabase
+      .from('note_categories')
+      .select('id, note_id, category_id')
+      .eq('category_id', categoryId);
+
+    if (error) throw error;
+    return data;
+  },
+
+  /**
+   * Deletes a note category by its ID.
+   * 
+   * @async
+   * @function deleteNoteCategory
+   * @memberof module:repositories/noteCategoryRepository
+   * @param {number} id - The ID of the note category to delete.
+   * @returns {Promise&lt;Object>} The deleted note category data.
+   * @throws {Error} If an error occurs during deletion.
+   */
+  async deleteNoteCategory(id) {
+    const { data, error } = await supabase
+      .from('note_categories')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+    return data;
+  },
+};
+
+export default noteCategoryRepository;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#createNote">createNote</a></li><li><a href="global.html#deleteNote">deleteNote</a></li><li><a href="global.html#deleteNoteById">deleteNoteById</a></li><li><a href="global.html#disconnectUser">disconnectUser</a></li><li><a href="global.html#getCollaborators">getCollaborators</a></li><li><a href="global.html#getNoteById">getNoteById</a></li><li><a href="global.html#getNotesForUser">getNotesForUser</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logoutUser">logoutUser</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#removeUser">removeUser</a></li><li><a href="global.html#shareNoteWithUser">shareNoteWithUser</a></li><li><a href="global.html#updateNote">updateNote</a></li><li><a href="global.html#updateNoteUserIds">updateNoteUserIds</a></li><li><a href="global.html#userController">userController</a></li><li><a href="global.html#userRepository">userRepository</a></li><li><a href="global.html#verifyToken">verifyToken</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Mon Oct 14 2024 20:06:23 GMT+0200 (South Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
