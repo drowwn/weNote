@@ -23,7 +23,6 @@
     "clsx": "^2.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
-    "credential": "link:@auth/express/providers/credential",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "framer-motion": "^11.9.0",
