@@ -20,7 +20,7 @@ function App() {
   };
 
   useEffect(() => {
-    document.title = 'Note Taking App';
+    document.title = 'weNote';
   }, []);
 
   return (
