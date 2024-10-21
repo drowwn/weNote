@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -8,8 +9,29 @@ export default function Register() {
   const [username, setUsername] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+
+  const validateEmail = (email: string) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (username.length < 1 || username.length > 50) {
+      setError('Username must be between 1 and 50 characters.');
+      return;
+    }
+
+    if (email.length < 1 || email.length > 50 || !validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be longer than 8 characters.');
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
@@ -40,6 +62,15 @@ export default function Register() {
       setError('Registration request failed. Please try again.');
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const [confirmPassword, setConfirmPassword] = useState('');
 

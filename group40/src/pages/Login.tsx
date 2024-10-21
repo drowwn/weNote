@@ -15,6 +15,20 @@ export default function SignIn() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email) || email.length < 1 || email.length > 50) {
+      setError('Invalid login credentials.');
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+
+    if (password.length < 8 || password.length > 50) {
+      setError('Invalid login credentials.');
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
@@ -36,9 +50,11 @@ export default function SignIn() {
         navigate('/');
       } else {
         setError(data.error || 'Login failed. Please try again.');
+        setTimeout(() => setError(null), 3000);
       }
     } catch (err) {
       setError('Login failed. Please try again.');
+      setTimeout(() => setError(null), 3000);
     }
   };
 
