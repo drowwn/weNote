@@ -196,7 +196,7 @@ const Dashboard: React.FC = () => {
       <ToastContainer />
 
       {/* Top Navigation Bar */}
-      <div className="fixed top-0 left-0 right-0 h-16 bg-gray-950/70 shadow-md flex items-center justify-between px-4 z-50">
+      <div className="fixed top-0 left-0 right-0 h-16 bg-gray-950/80 backdrop-blur-lg shadow-md flex items-center justify-between px-4 z-50">
         {/* Sidebar Toggle Button */}
         {!isBigScreen && (
           <button
@@ -350,7 +350,7 @@ const Dashboard: React.FC = () => {
           ></div>
 
           {/* Sidebar Content */}
-            <div className="relative mt-16 gap-4 flex-1 flex flex-nowrap bg-gray-800/40 p-4 transition-transform transform translate-x-0 backdrop-blur-sm">
+            <div className="relative mt-16 gap-4 flex-1 flex flex-nowrap bg-transparent p-4 backdrop-blur-md">
             <Sidebar 
               categories={categories} 
               onItemClick={handleCategoryClick} 

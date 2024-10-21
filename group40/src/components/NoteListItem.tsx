@@ -19,13 +19,13 @@ const NoteListItem: React.FC<NoteListItemProps> = ({
   onClick,
 }) => {
 
-  const baseClass = 'bg-gray-950/80'; 
+  const baseClass = 'bg-gray-950/60'; 
   const hoverClass = 'hover:bg-gray-500/20';
   const selectedClass = isSelected ? 'bg-[#5953e0]/50' : '';
 
   return (
     <div
-      className={`flex flex-col p-5 mt-4 w-full rounded-2xl cursor-pointer ${baseClass} ${hoverClass} ${selectedClass} transition-colors duration-300`}
+      className={`flex flex-col p-5 mt-4 w-full rounded-2xl cursor-pointer ${baseClass} ${hoverClass} ${selectedClass} transition-colors duration-300 backdrop-blur-md`}
       onClick={onClick}
       tabIndex={0} 
       style={{ outline: isSelected ? '3px solid #5953e0' : 'none' }} 

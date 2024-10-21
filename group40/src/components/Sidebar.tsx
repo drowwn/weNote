@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories = [], onItemClick, onNewNo
   };
 
   return (
-    <aside className="flex flex-col bg-gray-950/60 rounded-2xl max-w-[280px] h-full flex-grow backdrop-blur-lg">
+    <aside className="flex flex-col bg-gray-950/60 rounded-2xl max-w-[280px] h-full flex-grow backdrop-blur-md">
       {/* Header */}
       <div className="flex justify-between rounded-t-2xl items-center px-5 py-4 bg-gray-950/80">
         <div className="text-2xl font-bold text-white">Folders</div>

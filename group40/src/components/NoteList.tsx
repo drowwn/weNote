@@ -141,7 +141,7 @@ const NoteList: React.FC<NoteListProps> = ({ onNoteClick , onCategoriesUpdate, r
   });
 
   return (
-  <section className="flex flex-col bg-gray-950/50 w-full h-full overflow-hidden rounded-2xl transition-all duration-300" >
+  <section className="flex flex-col bg-gray-950/60 w-full h-full overflow-hidden rounded-2xl transition-all duration-300" >
       {/* Header */}
       <div className="flex flex-col">
         <div className="flex items-center justify-between px-5 py-3 bg-gray-950/80 sticky top-0 z-10 transition-all duration-300">

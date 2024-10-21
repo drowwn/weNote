@@ -19,7 +19,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   description,
 }) => {
   const baseClass = 'bg-transparent';
-  const hoverClass = 'hover:bg-gray-500/20 rounded-2xl';
+  const hoverClass = 'hover:bg-gray-500/20 rounded-md';
   const selectedClass = isSelected ? 'bg-gray-500/20' : '';
 
   return (

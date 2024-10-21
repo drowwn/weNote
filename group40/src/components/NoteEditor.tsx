@@ -545,7 +545,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
 
   return (
     <main
-      className="flex flex-col h-full rounded-2xl p-6 bg-gray-950/70 text-white"
+      className="flex flex-col h-full rounded-2xl p-6 bg-gray-950/70 text-white backdrop-blur-md"
     >
       {/* Header Section */}
       <header className="flex flex-wrap gap-10 justify-between items-center w-auto">
@@ -667,21 +667,21 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
               <ChevronDown className="w-5 h-5" />
             </button>
             {isParagraphMenuOpen && (
-              <div className="absolute left-0 mt-2 w-56 rounded-2xl shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5 z-10">
-                <div className="py-1">
-                  {["Title", "Heading 1", "Heading 2"].map((option) => (
-                    <div
-                      key={option}
-                      className="px-4 py-2 text-sm text-white hover:bg-gray-800/50 rounded-xl cursor-pointer"
-                      onClick={() => {
-                        handleParagraph(option);
-                        setIsParagraphMenuOpen(false);
-                      }}
-                    >
-                      {option}
-                    </div>
-                  ))}
+              <div className="absolute left-0 mt-12 w-56 rounded-2xl shadow-lg bg-gray-950/80 backdrop-blur-md ring-1 ring-black ring-opacity-5 z-10">
+              <div className="py-1">
+                {["Title", "Heading 1", "Heading 2"].map((option) => (
+                <div
+                  key={option}
+                  className="px-4 py-2 text-sm text-white hover:bg-gray-800/50 rounded-xl cursor-pointer"
+                  onClick={() => {
+                  handleParagraph(option);
+                  setIsParagraphMenuOpen(false);
+                  }}
+                >
+                  {option}
                 </div>
+                ))}
+              </div>
               </div>
             )}
           </div>
@@ -703,7 +703,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
             </button>
 
             {isFontSizeMenuOpen && (
-              <div className="absolute left-0 mt-2 w-32 rounded-2xl shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5 z-10">
+              <div className="absolute left-0 mt-2 w-32 rounded-2xl shadow-lg bg-gray-950/80 backdrop-blur-md ring-1 ring-black ring-opacity-5 z-10">
                 <div className="py-1">
                   {[12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32].map((size) => (
                     <div
@@ -744,7 +744,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
               }}
             />
             {isTableMenuOpen && (
-              <div className="absolute left-0 mt-2 w-48 rounded-2xl shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5 z-10">
+              <div className="absolute left-0 mt-2 w-48 rounded-2xl shadow-lg bg-gray-950/80 backdrop-blur-md ring-1 ring-black ring-opacity-5 z-10">
                 <div className="py-1 px-4">
                   <div className="text-white mb-2">Insert Table</div>
                   <div className="flex gap-2 mb-2">
@@ -800,7 +800,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
 
             {/* Collaborators Dropdown Menu */}
             {isCollaboratorsMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 rounded-2xl shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5 z-10">
+              <div className="absolute right-0 mt-3 w-56 rounded-2xl shadow-lg bg-gray-950/80 backdrop-blur-md ring-1 ring-black ring-opacity-5 z-10">
                 <div className="py-2 px-4 text-lg text-white rounded-t-2xl font-bold">Online</div>
                 <div className="py-1">
                   {onlineCollaberators.length > 0 ? (
