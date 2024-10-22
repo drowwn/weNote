@@ -89,7 +89,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:3001/categories', {
+        const response = await fetch('http://25.22.155.245:3001/categories', {
           method: 'GET',
           credentials: 'include',
         });
@@ -108,14 +108,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
 
       const id = note.id;
       try {
-        const response = await fetch(`http://localhost:3001/notecat/note/${id}`, {
+        const response = await fetch(`http://25.22.155.245:3001/notecat/note/${id}`, {
           method: 'GET',
           credentials: 'include',
         });
         if (response.ok) {
           const data = await response.json();
           try {
-            const response = await fetch(`http://localhost:3001/categories/${data.noteCategories[0].category_id}`, {
+            const response = await fetch(`http://25.22.155.245:3001/categories/${data.noteCategories[0].category_id}`, {
               method: 'Get',
               credentials: 'include',
             });
@@ -175,7 +175,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
   // Handler for adding a new collaborator
   const handleInviteCollaborator = async (noteId: string, userEmail: string) => {
     try {
-      const userResponse = await fetch(`http://localhost:3001/users/email/${userEmail}`, {
+      const userResponse = await fetch(`http://25.22.155.245:3001/users/email/${userEmail}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
       const newUserId = user.id; 
   
       // Share the note using the user's UUID
-      const response = await fetch(`http://localhost:3001/notes/${noteId}/share`, {
+      const response = await fetch(`http://25.22.155.245:3001/notes/${noteId}/share`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -218,11 +218,22 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
 
   // Handler for saving the note
   const handleSaveNote = async () => {
+    
+    if (noteTitle.length > 100) {
+      toast.error('Note title cannot exceed 100 characters!', customToastOptions);
+      return;
+    }
+
+    if (noteContent.length > 100000) {
+      toast.error('Note content cannot exceed 100 000 characters!', customToastOptions);
+      return;
+    }
+
     const noteData = { title: noteTitle, content: noteContent };
     try {
       let response;
       if (noteId) {
-        response = await fetch(`http://localhost:3001/notes/${noteId}`, {
+        response = await fetch(`http://25.22.155.245:3001/notes/${noteId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -231,7 +242,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
           body: JSON.stringify(noteData),
         });
       } else {
-        response = await fetch('http://localhost:3001/notes', {
+        response = await fetch('http://25.22.155.245:3001/notes', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -248,7 +259,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
       
       // Check if note_category exists 
       if (selectedCategoryId !== 0) {
-        const noteCategoryResponse = await fetch(`http://localhost:3001/notecat/note/${currentNoteId}/category/${selectedCategoryId}`, {
+        const noteCategoryResponse = await fetch(`http://25.22.155.245:3001/notecat/note/${currentNoteId}/category/${selectedCategoryId}`, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -262,7 +273,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
           } else {
             console.log('Note category does not exist. Creating a new one...');
             
-            const createNoteCategoryResponse = await fetch('http://localhost:3001/notecat', {
+            const createNoteCategoryResponse = await fetch('http://25.22.155.245:3001/notecat', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -281,7 +292,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
         } else if (noteCategoryResponse.status === 404) {
           console.log('Note category does not exist. Creating a new one...');
           
-          const createNoteCategoryResponse = await fetch('http://localhost:3001/notecat', {
+          const createNoteCategoryResponse = await fetch('http://25.22.155.245:3001/notecat', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -314,7 +325,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
     setIsCollaboratorsMenuOpen((prev) => !prev);
     if (!isCollaboratorsMenuOpen && noteId) {
       try {
-        const response = await fetch(`http://localhost:3001/notes/${noteId}/collaborators`, {
+        const response = await fetch(`http://25.22.155.245:3001/notes/${noteId}/collaborators`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -437,7 +448,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
 
   const handleDeleteNote = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/notes/${noteId}`, {
+      const response = await fetch(`http://25.22.155.245:3001/notes/${noteId}`, {
         method: 'DELETE',
         credentials: 'include',
       });
@@ -621,12 +632,12 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
           <div className="flex gap-2 items-start w-[30px]">
             <Folder className="object-contain aspect-square w-[18px]" />
           </div>
-          <div className="text-sm font-semibold text-white text-opacity-60 w-[91px]">
+            <div className="text-sm font-semibold text-white text-opacity-60 w-[91px]">
             Folder
-          </div>
-          <div className="flex items-center">
+            </div>
+            <div className="flex items-center max-w-28 overflow-hidden rounded-2xl">
             <select
-              className="bg-gray-900 text-sm font-semibold text-white rounded-2xl px-2 py-1"
+              className="bg-gray-900 max-w-28 overflow-hidden text-sm font-semibold text-white rounded-2xl px-2 py-1"
               value={folder}
               onChange={(e) => {
                 const selectedCategory = categories.find((category) => category.name === e.target.value);
@@ -635,11 +646,11 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
               }}
               style={{ backgroundColor: '#4a47c0' }}
             >
-              {categories.map((category) => (
+                {categories.map((category) => (
                 <option key={category.id} value={category.name}>
-                  {category.name}
+                  {category.name.length > 10 ? `${category.name.slice(0, 10)}...` : category.name}
                 </option>
-              ))}
+                ))}
             </select>
           </div>
         </div>
@@ -855,6 +866,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
               value={inviteEmail}
               onChange={(e) => setInviteEmail(e.target.value)}
               placeholder="Invite by email"
+              maxLength={100}
               className="bg-transparent text-sm font-semibold text-white border border-white border-opacity-20 rounded-2xl px-2 py-1 focus:outline-none w-48"
             />
             {/* Tick Icon for Add */}
@@ -897,7 +909,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
                 strokeLinejoin="round"
                 strokeWidth={2}
                 d="M6 18L18 6M6 6l12 12"
-              />
+              /> 
               </svg>
             </button>
             </div>
@@ -922,12 +934,15 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
             // Raw Text Edit Mode
             <div className="flex flex-col h-full">
               <textarea
-                ref={textareaRef} 
-                value={noteContent} // Use state for controlling the textarea's value
-                onChange={(e) => handleContentChange(e.target.value)}
-                placeholder="Write your note here..."
-                className=".note-content-textarea flex-1 w-full bg-transparent border border-[#5953e0] border-opacity-90 p-4 rounded-2xl resize-none overflow-auto focus:outline-none focus:ring-2 focus:ring-[#5953e0] focus:ring-inset text-white scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
-                style={{ boxSizing: "border-box", fontSize: `${currentFontSize}px` }}
+              ref={textareaRef} 
+              value={noteContent} // Use state for controlling the textarea's value
+              onChange={(e) => {
+                if (e.target.value.length <= 100000)
+                  handleContentChange(e.target.value); 
+              }}
+              placeholder="Write your note here..."
+              className=".note-content-textarea flex-1 w-full bg-transparent border border-[#5953e0] border-opacity-90 p-4 rounded-2xl resize-none overflow-auto focus:outline-none focus:ring-2 focus:ring-[#5953e0] focus:ring-inset text-white scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+              style={{ boxSizing: "border-box", fontSize: `${currentFontSize}px` }}
               />
             </div>
           )}

@@ -25,7 +25,7 @@ export default function Profile() {
     formData.append('avatar', file);
 
     try {
-      const response = await fetch(`http://localhost:3001/api/upload`, {
+      const response = await fetch(`http://25.22.155.245:3001/api/upload`, {
         method: 'POST',
         body: formData,
         credentials: 'include',
@@ -46,7 +46,7 @@ export default function Profile() {
    // Handler for Sign Out
    const handleSignOut = async () => {
     try {
-      const response = await fetch("http://localhost:3001/logout", {
+      const response = await fetch("http://25.22.155.245:3001/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -65,7 +65,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:3001/users/me', {
+        const response = await fetch('http://25.22.155.245:3001/users/me', {
           method: 'GET',
           credentials: 'include',
         });
@@ -92,8 +92,18 @@ export default function Profile() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (username.length > 20) {
+      toast.error('Username cannot be longer than 20 characters', customToastOptions);
+      return;
+    }
+
+    if (email.length > 50) {
+      toast.error('Email cannot be longer than 50 characters', customToastOptions);
+      return;
+    }
+
     try {
-      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      const response = await fetch(`http://25.22.155.245:3001/users/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +133,7 @@ export default function Profile() {
 
     if (confirmation) {
       try {
-        const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        const response = await fetch(`http://25.22.155.245:3001/users/${userId}`, {
           method: 'DELETE',
           credentials: 'include', // Send credentials to include the JWT token
         });
@@ -183,7 +193,7 @@ export default function Profile() {
           <div className="relative">
             {avatar ? (
               <img
-                src={`http://localhost:3001${avatar}`}
+                src={`http://25.22.155.245:3001${avatar}`}
                 alt="Avatar"
                 className="w-32 h-32 rounded-full object-cover border-4 border-gray-800"
               />
@@ -223,6 +233,7 @@ export default function Profile() {
                 name="username"
                 type="text"
                 value={username}
+                maxLength={20}
                 onChange={(e) => setUsername(e.target.value)}
                 className="relative block w-full px-3 py-2 text-gray-100 bg-gray-800 placeholder-gray-500 border border-gray-700 rounded-2xl focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
                 placeholder="Username"
@@ -234,6 +245,7 @@ export default function Profile() {
                 id="email"
                 name="email"
                 type="email"
+                maxLength={50}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="relative block w-full px-3 py-2 text-gray-100 bg-gray-800 placeholder-gray-500 border border-gray-700 rounded-2xl focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"

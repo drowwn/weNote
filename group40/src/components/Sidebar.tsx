@@ -64,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories = [], onItemClick, onNewNo
 
   const createNewNote = async () => {
     try {
-      const response = await fetch('http://localhost:3001/notes', {
+      const response = await fetch('http://25.22.155.245:3001/notes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,11 +99,11 @@ const Sidebar: React.FC<SidebarProps> = ({ categories = [], onItemClick, onNewNo
       {/* New Note Button */}
       <div className="flex flex-col mt-6 px-5 items-center">
         <button
-          className="flex items-center p-3 rounded-2xl bg-[#5953e0]/90 hover:bg-[#5953e0] transition-colors duration-300 w-full"
+          className="flex p-3 rounded-2xl bg-[#5953e0]/90 hover:bg-[#5953e0] transition-colors duration-300 w-full"
           onClick={createNewNote}
         >
           <FaPlus className="w-6 h-6 text-white" /> 
-          <span className="ml-3 text-white">New Note</span>
+            <span className="ml-3 text-white font-bold text-left">New Note</span>
         </button>
       </div>
 

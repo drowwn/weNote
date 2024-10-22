@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   useEffect(() => {
     // Make a request to the backend to verify if the user is authenticated
-    fetch('http://localhost:3001/users/me', {
+    fetch('http://25.22.155.245:3001/users/me', {
       credentials: 'include',
     })
       .then((response) => {

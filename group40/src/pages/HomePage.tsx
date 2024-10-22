@@ -9,7 +9,7 @@ const HomePage = ({ scrollToTarget }: { scrollToTarget: (target: 'editor' | 'set
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('http://localhost:3001/logout', {
+      const response = await fetch('http://25.22.155.245:3001/logout', {
         method: 'POST',
         credentials: 'include', // Send the cookies
       });

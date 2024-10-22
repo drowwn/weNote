@@ -39,7 +39,7 @@ export default function Register() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/signup', {
+      const response = await fetch('http://25.22.155.245:3001/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

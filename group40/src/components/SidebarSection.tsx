@@ -50,16 +50,21 @@ const SidebarSection: React.FC<SidebarSectionProps> = ({ title, items }) => {
   };
 
   const handleAddFolder = async () => {
-    if (newFolderName.trim() !== "") {
+    let trimmedFolderName = newFolderName.trim();
+    if (trimmedFolderName.length > 50) {
+      trimmedFolderName = trimmedFolderName.substring(0, 50);
+    }
+
+    if (trimmedFolderName !== "") {
       try {
-        const response = await fetch('http://localhost:3001/categories', {
+        const response = await fetch('http://25.22.155.245:3001/categories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
           body: JSON.stringify({
-            name: newFolderName.trim(),
+            name: trimmedFolderName,
             description: newFolderDescription.trim(),
           }),
         });
@@ -144,6 +149,7 @@ const SidebarSection: React.FC<SidebarSectionProps> = ({ title, items }) => {
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
+            maxLength={100}
             placeholder="Search folders..."
             className="w-full px-3 py-2 bg-gray-800/40 text-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#5953e0] transition-opacity duration-300"
           />
@@ -159,12 +165,14 @@ const SidebarSection: React.FC<SidebarSectionProps> = ({ title, items }) => {
             type="text"
             value={newFolderName}
             onChange={handleNewFolderNameChange}
+            maxLength={100}
             placeholder="Folder name"
             className="w-full px-3 py-2 bg-gray-800/40 text-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#5953e0] transition-opacity duration-300"
           />
           <textarea
             value={newFolderDescription}
             onChange={handleNewFolderDescriptionChange}
+            maxLength={200}
             placeholder="Add description (optional)"
             className="w-full px-3 py-2 mt-3 bg-gray-800/40 text-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#5953e0] transition-opacity duration-300 resize-none h-24"
           />

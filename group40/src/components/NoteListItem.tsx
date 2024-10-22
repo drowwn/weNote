@@ -25,17 +25,22 @@ const NoteListItem: React.FC<NoteListItemProps> = ({
 
   return (
     <div
-      className={`flex flex-col p-5 mt-4 w-full rounded-2xl cursor-pointer ${baseClass} ${hoverClass} ${selectedClass} transition-colors duration-300 backdrop-blur-md`}
+      className={`flex flex-col p-5 mt-4 w-full rounded-2xl cursor-pointer ${baseClass} ${hoverClass} ${selectedClass} transition-colors duration-300`}
       onClick={onClick}
       tabIndex={0} 
       style={{ outline: isSelected ? '3px solid #5953e0' : 'none' }} 
     >
-      <h2 className="text-lg font-bold leading-loose text-white">
-        {title}
+      <h2 className="text-lg font-bold leading-loose text-white overflow-hidden">
+        {title.length > 25 ? `${title.substring(0, 23)}...` : title}
       </h2>
       <div className="flex items-start w-full text-base">
-        <div className="flex-1 shrink basis-0 text-white text-opacity-60">
-          {content.length > 30 ? `${content.substring(0, 60)}...` : content} 
+        <div className="flex-1 shrink basis-0 text-white text-opacity-60 overflow-hidden max-h-20">
+          {content.match(/.{1,28}/g)?.map((line, index) => (
+            <React.Fragment key={index}>
+              {index < 2 ? line : index === 2 ? `${line.substring(0, 28)}...` : null}
+              <br />
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </div>

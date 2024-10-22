@@ -9,7 +9,7 @@ import { Category } from "../components/NoteList";
 import 'react-toastify/dist/ReactToastify.css';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3001', {
+const socket = io('http://25.22.155.245:3001', {
   auth: {
     withCredentials: "include",
   }
@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:3001/users/me', {
+        const response = await fetch('http://25.22.155.245:3001/users/me', {
           method: 'GET',
           credentials: 'include',
         });
@@ -147,7 +147,7 @@ const Dashboard: React.FC = () => {
   const handleSignOut = async () => {
     socket.emit('logout');
     try {
-      const response = await fetch("http://localhost:3001/logout", {
+      const response = await fetch("http://25.22.155.245:3001/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -242,7 +242,7 @@ const Dashboard: React.FC = () => {
           >
             {avatar ? (
               <img
-                src={`http://localhost:3001${avatar}`}
+                src={`http://25.22.155.245:3001${avatar}`}
                 alt="Avatar"
                 className="absolute inset-0 w-full h-full rounded-full object-cover"
               />

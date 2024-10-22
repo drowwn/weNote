@@ -30,7 +30,7 @@ export default function SignIn() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('http://25.22.155.245:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

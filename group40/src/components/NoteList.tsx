@@ -34,7 +34,7 @@ const NoteList: React.FC<NoteListProps> = ({ onNoteClick , onCategoriesUpdate, r
   useEffect(() => {
     const fetchNotesAndCategories = async () => {
       try {
-        const response = await fetch('http://localhost:3001/notes', {
+        const response = await fetch('http://25.22.155.245:3001/notes', {
           method: 'GET',
           credentials: 'include',
         });
@@ -43,7 +43,7 @@ const NoteList: React.FC<NoteListProps> = ({ onNoteClick , onCategoriesUpdate, r
           const { notes } = await response.json();
   
           const noteCategoriesPromises = notes.map((note: NoteListItemProps) =>
-            fetch(`http://localhost:3001/notecat/note/${note.id}`, {
+            fetch(`http://25.22.155.245:3001/notecat/note/${note.id}`, {
               method: 'GET',
               credentials: 'include',
             })
@@ -61,7 +61,7 @@ const NoteList: React.FC<NoteListProps> = ({ onNoteClick , onCategoriesUpdate, r
   
           // Fetch category details for each category_id
           const categoryDetailsPromises = mergedCategories.map((noteCategory: NoteCategoryProp) =>
-            fetch(`http://localhost:3001/categories/${noteCategory.category_id}`, {
+            fetch(`http://25.22.155.245:3001/categories/${noteCategory.category_id}`, {
               method: 'GET',
               credentials: 'include',
             }).then(response => response.json())
@@ -207,6 +207,7 @@ const NoteList: React.FC<NoteListProps> = ({ onNoteClick , onCategoriesUpdate, r
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Search notes..."
+            maxLength={100}
             className="w-full px-3 py-2 bg-gray-800/40 text-white rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#5953e0] transition-opacity duration-300"
           />
         </div>

@@ -26,17 +26,19 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     <div
       className={`relative flex gap-4 items-center px-5 py-2.5 w-full cursor-pointer ${baseClass} ${hoverClass} ${selectedClass} transition-colors duration-300`}
       onClick={onClick}
-      data-tooltip-content={description || 'No description'}
+      data-tooltip-content={description && description.length > 40 ? `${description.slice(0, 40)}...` : description || 'No description'}
       data-tooltip-id={`tooltip-${name}`}
       style={{ width: '100%' }}
     >
       {icon}
-      <div className="text-white flex-1">{name}</div>
+      <div className="text-white flex-1">
+      {name.length > 12 ? `${name.slice(0, 12)}...` : name}
+      </div>
       {/* Tooltip Component */}
       <ReactTooltip 
-        id={`tooltip-${name}`} 
-        place="right" 
-        className="custom-tooltip"
+      id={`tooltip-${name}`} 
+      place="right" 
+      className="custom-tooltip"
       />
     </div>
   );
