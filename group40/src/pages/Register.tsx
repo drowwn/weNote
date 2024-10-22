@@ -29,7 +29,7 @@ export default function Register() {
     }
 
     if (password.length < 8) {
-      setError('Password must be longer than 8 characters.');
+      setError('Password must be longer than 7 characters.');
       return;
     }
 
@@ -96,6 +96,7 @@ export default function Register() {
                 id="username"
                 name="username"
                 type="text"
+                maxLength={20}
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -109,6 +110,7 @@ export default function Register() {
                 id="email"
                 name="email"
                 type="email"
+                maxLength={50}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -122,6 +124,7 @@ export default function Register() {
                 id="password"
                 name="password"
                 type="password"
+                maxLength={50}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -135,6 +138,7 @@ export default function Register() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type="password"
+                maxLength={50}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required

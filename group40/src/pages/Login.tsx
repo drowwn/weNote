@@ -76,6 +76,7 @@ export default function SignIn() {
               name="email"
               type="email"
               value={email}
+              maxLength={50}
               onChange={(e) => setEmail(e.target.value)}
               required
               className="relative block w-full px-3 py-2 text-gray-100 bg-gray-800 placeholder-gray-500 border border-gray-700 rounded-2xl focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
@@ -89,6 +90,7 @@ export default function SignIn() {
               name="password"
               type="password"
               value={password}
+              maxLength={50}
               onChange={(e) => setPassword(e.target.value)}
               required
               className="relative block w-full px-3 py-2 text-gray-100 bg-gray-800 placeholder-gray-500 border border-gray-700 rounded-2xl focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"

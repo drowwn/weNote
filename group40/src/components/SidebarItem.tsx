@@ -32,7 +32,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     >
       {icon}
       <div className="text-white flex-1">
-      {name.length > 12 ? `${name.slice(0, 12)}...` : name}
+      {name.length > 16 ? `${name.slice(0, 16)}...` : name}
       </div>
       {/* Tooltip Component */}
       <ReactTooltip 
