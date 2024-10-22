@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface NoteListItemProps {
   id: string;
   title: string;
@@ -10,6 +8,8 @@ export interface NoteListItemProps {
   onClick: () => void;
 }
 
+import React, { useRef, useEffect, useState } from 'react';
+
 const NoteListItem: React.FC<NoteListItemProps> = ({
   title,
   created_at,
@@ -18,6 +18,23 @@ const NoteListItem: React.FC<NoteListItemProps> = ({
   isSelected,
   onClick,
 }) => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [displayedContent, setDisplayedContent] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const divWidth = contentRef.current.offsetWidth;
+      const charsPerLine = Math.floor(divWidth / 8); // Approximate character width
+      const lines = content.match(new RegExp(`.{1,${charsPerLine}}`, 'g')) || [];
+      const truncatedLines = lines.slice(0, 3).map((line, index) => {
+        if (index === 2 && lines.length > 3) {
+          return `${line.substring(0, charsPerLine - 3)}...`;
+        }
+        return line;
+      });
+      setDisplayedContent(truncatedLines);
+    }
+  }, [contentRef.current?.offsetWidth, content]);
 
   const baseClass = 'bg-gray-950/60'; 
   const hoverClass = 'hover:bg-gray-500/20';
@@ -30,14 +47,17 @@ const NoteListItem: React.FC<NoteListItemProps> = ({
       tabIndex={0} 
       style={{ outline: isSelected ? '3px solid #5953e0' : 'none' }} 
     >
-      <h2 className="text-lg font-bold leading-loose text-white overflow-hidden">
-        {title.length > 25 ? `${title.substring(0, 23)}...` : title}
+      <h2
+        className="text-lg font-bold leading-loose text-white overflow-hidden"
+        style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+      >
+        {title}
       </h2>
       <div className="flex items-start w-full text-base">
-        <div className="flex-1 shrink basis-0 text-white text-opacity-60 overflow-hidden max-h-20">
-          {content.match(/.{1,28}/g)?.map((line, index) => (
+        <div ref={contentRef} className="flex-1 shrink basis-0 text-white text-opacity-60 overflow-hidden max-h-20">
+          {displayedContent.map((line, index) => (
             <React.Fragment key={index}>
-              {index < 2 ? line : index === 2 ? `${line.substring(0, 28)}...` : null}
+              {line}
               <br />
             </React.Fragment>
           ))}

@@ -350,7 +350,7 @@ const Dashboard: React.FC = () => {
           ></div>
 
           {/* Sidebar Content */}
-            <div className="relative mt-16 gap-4 flex-1 flex flex-nowrap bg-transparent p-4 backdrop-blur-md">
+            <div className="relative mt-16 gap-4 flex-1 flex flex-nowrap bg-transparent p-4 backdrop-blur-md overflow-hidden">
             <Sidebar 
               categories={categories} 
               onItemClick={handleCategoryClick} 

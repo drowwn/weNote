@@ -637,7 +637,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ note, onChange, onSave, onDelet
             </div>
             <div className="flex items-center max-w-28 overflow-hidden rounded-2xl">
             <select
-              className="bg-gray-900 max-w-28 overflow-hidden text-sm font-semibold text-white rounded-2xl px-2 py-1"
+              className="bg-gray-900 overflow-hidden text-sm font-semibold text-white rounded-2xl px-2 py-1"
               value={folder}
               onChange={(e) => {
                 const selectedCategory = categories.find((category) => category.name === e.target.value);
